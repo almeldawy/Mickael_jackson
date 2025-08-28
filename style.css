@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+
+:root {
+    --neon-blue: #00eaff;
+    --neon-pink: #ff00ff;
+    --dark-bg: #1a0a2f;
+    --light-grey: #e0e0e0;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--light-grey);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden; /* Pour les effets de fond */
+}
+
+/* Effet de grille rétro-futuriste en fond */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        repeating-linear-gradient(0deg, var(--neon-blue) 0, transparent 1px, transparent 10px),
+        repeating-linear-gradient(90deg, var(--neon-pink) 0, transparent 1px, transparent 10px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+header, footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+header h1 {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+    font-size: 3em;
+    margin-bottom: 5px;
+}
+
+.container {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 40px;
+}
+
+.character-area {
+    width: 400px; /* Taille de la zone du personnage */
+    height: 400px;
+    background: rgba(0, 255, 255, 0.1); /* Léger fond néon */
+    border: 3px solid var(--neon-blue);
+    box-shadow: 0 0 20px var(--neon-blue), inset 0 0 10px var(--neon-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Important si le GIF est plus grand que la zone ou pour les effets */
+}
+
+/* Style du personnage (le GIF) */
+.character {
+    width: 200px; /* Adapte à la largeur réelle de ton GIF */
+    height: 300px; /* Adapte à la hauteur réelle de ton GIF */
+    background-image: url('michael_jackson.gif'); /* Ton GIF animé */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    bottom: 0;
+    /* Pour contrôler le GIF : par défaut, on le met hors écran ou invisible */
+    opacity: 0; /* Invisible par défaut */
+    transform: translateY(100%); /* Commence hors écran */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Transition pour l'apparition */
+}
+
+/* Quand la classe 'dancing' est ajoutée par JS, le GIF apparaît */
+.character.dancing {
+    opacity: 1; /* Rendre visible */
+    transform: translateY(0); /* Le ramener à sa position */
+    animation: glowEffect 2s infinite alternate; /* Ton effet de lueur peut rester */
+}
+
+/* Effet de lueur pour le personnage */
+@keyframes glowEffect {
+    from { box-shadow: 0 0 5px var(--neon-pink); }
+    to { box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-blue); }
+}
+
+
+.info-panel {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink);
+    padding: 30px;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.info-panel h2 {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: var(--neon-blue);
+    color: var(--dark-bg);
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--neon-blue);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--neon-pink);
+    box-shadow: 0 0 25px var(--neon-pink);
+    color: white; /* Pour un meilleur contraste au survol */
+}
+
+footer {
+    border-top: 2px solid var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink);
+    margin-top: auto;
+}
+
+/* Media Queries pour la responsivité */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    .character-area {
+        width: 300px;
+        height: 300px;
+    }
+}
